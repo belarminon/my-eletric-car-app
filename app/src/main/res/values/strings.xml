@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Electric Car App</string>
+    <string name="app_titulo">Electric Car</string>
+    <string name="tv_price">Preço</string>
+    <string name="tv_reload">Recarga</string>
+    <string name="tv_power">Potência</string>
+    <string name="tv_batery">Bateria</string>
+    <string name="price_kwh">Preço Kwh</string>
+    <string name="km_running">Km percorrido</string>
+    <string name="btn_calcular">Calcular</string>
+</resources>
