@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ElectricCarApp">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:name=".presentation.CalcularAutonomiaActivity"/>
+            android:name=".ui.CalcularAutonomiaActivity"/>
     </application>
 
 </manifest>

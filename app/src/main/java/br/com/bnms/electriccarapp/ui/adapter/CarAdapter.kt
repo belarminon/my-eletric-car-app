@@ -1,13 +1,16 @@
-package br.com.bnms.electriccarapp.presentation.adapter
+package br.com.bnms.electriccarapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import br.com.bnms.electriccarapp.R
 import androidx.recyclerview.widget.RecyclerView
+import br.com.bnms.electriccarapp.domain.CarroDomain
 
-class CarAdapter (private val carros: Array<String>):
+
+class CarAdapter (private val carros: List<CarroDomain>):
     RecyclerView.Adapter<CarAdapter.ViewHolder>() {
 
     // Cria uma nova view
@@ -24,13 +27,24 @@ class CarAdapter (private val carros: Array<String>):
         holder: ViewHolder,
         position: Int
     ) {
-        holder.textView.text = carros[position]
+
+        val cars = carros[position]
+
+        holder.preco.text = cars.preco
+        holder.bateria.text = cars.bateria
+        holder.potencia.text = cars.potencia
+        holder.tempoRecarga.text = cars.tempoRecarga
+        //holder.urlPhoto.setImageResource( cars.urlPhoto )
     }
 
     // Pega a quantidade de carros da lista
     override fun getItemCount(): Int = carros.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.tv_price_value)
+        val preco: TextView = view.findViewById(R.id.tv_price_value)
+        val bateria: TextView = view.findViewById(R.id.tv_batery_value)
+        val potencia: TextView = view.findViewById(R.id.tv_power_value)
+        val tempoRecarga: TextView = view.findViewById(R.id.tv_reload_value)
+        // val urlPhoto: ImageView = view.findViewById(R.id.iv_car)
     }
 }

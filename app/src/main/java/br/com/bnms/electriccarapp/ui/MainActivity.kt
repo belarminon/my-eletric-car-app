@@ -1,20 +1,16 @@
-package br.com.bnms.electriccarapp.presentation
+package br.com.bnms.electriccarapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bnms.electriccarapp.R
-import br.com.bnms.electriccarapp.presentation.adapter.CarAdapter
+import br.com.bnms.electriccarapp.data.CarFactory
+import br.com.bnms.electriccarapp.ui.adapter.CarAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,33 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     fun setUpLista() {
 
-        val dados = arrayOf(
-            "Android 1.0 - Alpha",
-            "Android 1.1 - Beta",
-            "Android 1.5 - Cupcake",
-            "Android 1.6 - Donut",
-            "Android 2.0 - Eclair",
-            "Android 2.2 - Froyo",
-            "Android 2.3 - Gingerbread",
-            "Android 3.0 - Honeycomb",
-            "Android 4.0 - Ice Cream Sandwich",
-            "Android 4.1 - Jelly Bean",
-            "Android 4.4 - KitKat",
-            "Android 5.0 - Lollipop",
-            "Android 6.0 - Marshmallow",
-            "Android 7.0 - Nougat",
-            "Android 8.0 - Oreo",
-            "Android 9.0 - Pie",
-            "Android 10",
-            "Android 11",
-            "Android 12",
-            "Android 13",
-            "Android 14",
-            "Android 15"
-        )
-
-        val adapter = CarAdapter(dados)
-        //listaCarros.LayoutManager = LinearLayoutManager(this)
+        val adapter = CarAdapter(CarFactory.list)
         listaCarros.adapter = adapter
     }
 
