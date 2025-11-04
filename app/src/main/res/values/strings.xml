@@ -7,5 +7,6 @@
     <string name="tv_batery">Bateria</string>
     <string name="price_kwh">Preço Kwh</string>
     <string name="km_running">Km percorrido</string>
-    <string name="btn_calcular">Calcular</string>
+    <string name="btn_calcular">Calcular Autonomia</string>
+    <string name="title_2nd_activity">Calcular Autonomia</string>
 </resources>

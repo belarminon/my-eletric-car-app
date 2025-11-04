@@ -5,18 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.MainActivity">
+
 
     <TextView
         android:id="@+id/tv_title"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/app_titulo"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/tv_tab_cars"
@@ -38,140 +39,130 @@
         app:layout_constraintStart_toEndOf="@+id/tv_tab_cars"
         app:layout_constraintTop_toTopOf="@+id/tv_tab_cars" />
 
-    <ImageView
-        android:id="@+id/iv_car"
-        android:layout_width="201dp"
-        android:layout_height="136dp"
-        android:src="@drawable/aldeidando2"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_tab_cars"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tab_cars" />
 
-    <TextView
-        android:id="@+id/tv_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_price"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_car"
-        />
-
-    <TextView
-        android:id="@+id/tv_price_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="R$ 12.000,00"
-       app:layout_constraintStart_toEndOf="@id/tv_price"
-        app:layout_constraintTop_toTopOf="@id/tv_price"
-        />
-
-    <TextView
-        android:id="@+id/tv_batery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_batery"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_price"
-        />
-
-    <TextView
-        android:id="@+id/tv_batery_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="93,4 kWh"
-        app:layout_constraintStart_toEndOf="@id/tv_batery"
-        app:layout_constraintTop_toTopOf="@id/tv_batery"
-        />
-
-    <TextView
-        android:id="@+id/tv_power"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_power"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_batery"
-        />
-
-    <TextView
-        android:id="@+id/tv_power_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="646 cv"
-        app:layout_constraintStart_toEndOf="@id/tv_power"
-        app:layout_constraintTop_toTopOf="@id/tv_power"
-        />
-
-    <TextView
-        android:id="@+id/tv_reload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_reload"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_power"
-        />
-
-    <TextView
-        android:id="@+id/tv_reload_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="23 min"
-        app:layout_constraintStart_toEndOf="@id/tv_reload"
-        app:layout_constraintTop_toTopOf="@id/tv_reload"
-        />
-
-    <EditText
-        android:id="@+id/et_preco_kwh"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_margin="16dp"
-        android:hint="@string/price_kwh"
-        android:inputType="numberDecimal"
-        android:maxLength="10"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="24dp"
+        android:outlineAmbientShadowColor="@color/cardview_dark_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reload_value" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_tab_favourity">
 
-    <EditText
-        android:id="@+id/et_percorrido"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="4dp"
-        android:inputType="numberDecimal"
-        android:maxLength="10"
-        android:maxLines="2"
-        android:hint="@string/km_running"
-        app:layout_constraintEnd_toEndOf="@+id/et_preco_kwh"
-        app:layout_constraintStart_toStartOf="@+id/et_preco_kwh"
-        app:layout_constraintTop_toBottomOf="@+id/et_preco_kwh" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_card_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/aldeidando2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/tv_price"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_car" />
+
+            <TextView
+                android:id="@+id/tv_price_value"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="R$ 12.000,00"
+                app:layout_constraintStart_toEndOf="@id/tv_price"
+                app:layout_constraintTop_toTopOf="@id/tv_price" />
+
+            <TextView
+                android:id="@+id/tv_batery"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/tv_batery"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_price" />
+
+            <TextView
+                android:id="@+id/tv_batery_value"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="93,4 kWh"
+                app:layout_constraintStart_toEndOf="@id/tv_batery"
+                app:layout_constraintTop_toTopOf="@id/tv_batery" />
+
+            <TextView
+                android:id="@+id/tv_power"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/tv_power"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_batery" />
+
+            <TextView
+                android:id="@+id/tv_power_value"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="646 cv"
+                app:layout_constraintStart_toEndOf="@id/tv_power"
+                app:layout_constraintTop_toTopOf="@id/tv_power" />
+
+            <TextView
+                android:id="@+id/tv_reload"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/tv_reload"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_power" />
+
+            <TextView
+                android:id="@+id/tv_reload_value"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="23 min"
+                app:layout_constraintStart_toEndOf="@id/tv_reload"
+                app:layout_constraintTop_toTopOf="@id/tv_reload"
+                app:layout_constraintBottom_toBottomOf="@+id/cl_card_content"
+                android:layout_marginBottom="16dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/btn_calcular"
+        android:id="@+id/btn_calcular_autonomia"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/btn_calcular"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@+id/et_percorrido"
-        app:layout_constraintEnd_toEndOf="@+id/et_percorrido"
-        app:layout_constraintTop_toBottomOf="@+id/et_percorrido"
-        />
-
-    <TextView
-        android:id="@+id/tv_resultado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/btn_calcular"
-        app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
-        />
-
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
