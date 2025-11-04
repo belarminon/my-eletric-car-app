@@ -14,7 +14,7 @@ object CarFactory {
         ), CarroDomain(
             id = 2,
             preco = "R$ 300.000,00",
-            bateria = "300 kWv",
+            bateria = "200 kWv",
             potencia = "300 CV",
             tempoRecarga = "23 min",
             urlPhoto = "www.google.com"
