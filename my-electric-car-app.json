@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "preco": "R$ 310.000,00",
+    "preco": "R$ 310.999,00",
     "bateria": "300 kWh",
     "potencia": "400 CV",
     "tempoRecarga": "25 min",
@@ -80,3 +80,4 @@
     "urlPhoto": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
   }
 ]
+
