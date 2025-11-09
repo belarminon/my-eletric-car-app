@@ -9,4 +9,6 @@
     <string name="km_running">Km percorrido</string>
     <string name="btn_calcular">Calcular Autonomia</string>
     <string name="title_2nd_activity">Calcular Autonomia</string>
+    <string name="carros">CARROS</string>
+    <string name="favoritos">FAVORITOS</string>
 </resources>
