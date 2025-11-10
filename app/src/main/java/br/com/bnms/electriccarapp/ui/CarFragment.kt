@@ -139,6 +139,9 @@ class CarFragment : Fragment() {
             isVisible = true
             adapter = carAdapter
         }
+        carAdapter.carItemListener = { carro ->
+            val bateria = carro.bateria
+        }
     }
     fun setupListeners() {
         fabCalcular.setOnClickListener {
@@ -178,7 +181,8 @@ class CarFragment : Fragment() {
                     bateria = json.getString("bateria"),
                     potencia = json.getString("potencia"),
                     tempoRecarga = json.getString("tempoRecarga"),
-                    urlPhoto = json.getString("urlPhoto")
+                    urlPhoto = json.getString("urlPhoto"),
+                    isFavorite = false
                 )
                 carroArray.add(model)
             }

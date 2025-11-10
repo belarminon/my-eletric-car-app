@@ -13,6 +13,8 @@ import br.com.bnms.electriccarapp.domain.CarroDomain
 class CarAdapter (private val carros: List<CarroDomain>):
     RecyclerView.Adapter<CarAdapter.ViewHolder>() {
 
+    var carItemListener: (CarroDomain) -> Unit = {}
+
     // Cria uma nova view
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,10 +36,25 @@ class CarAdapter (private val carros: List<CarroDomain>):
         holder.bateria.text = cars.bateria
         holder.potencia.text = cars.potencia
         holder.tempoRecarga.text = cars.tempoRecarga
-        //holder.urlPhoto.setImageResource( cars.urlPhoto )
+//        holder.urlPhoto.setImageResource( cars.urlPhoto )
+        holder.favorite.setOnClickListener {
+            carItemListener(cars)
+            cars.isFavorite = !cars.isFavorite
+
+            setupFavorite(cars, holder)
+        }
     }
 
-    // Pega a quantidade de carros da lista
+    private fun setupFavorite(
+        cars: CarroDomain,
+        holder: ViewHolder
+    ) {
+        if (cars.isFavorite)
+            holder.favorite.setImageResource(R.drawable.ic_star_selected)
+        else
+            holder.favorite.setImageResource(R.drawable.ic_star)
+    }
+
     override fun getItemCount(): Int = carros.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -45,6 +62,8 @@ class CarAdapter (private val carros: List<CarroDomain>):
         val bateria: TextView = view.findViewById(R.id.tv_batery_value)
         val potencia: TextView = view.findViewById(R.id.tv_power_value)
         val tempoRecarga: TextView = view.findViewById(R.id.tv_reload_value)
-        // val urlPhoto: ImageView = view.findViewById(R.id.iv_car)
+        val urlPhoto: ImageView = view.findViewById(R.id.iv_car)
+
+        val favorite: ImageView = view.findViewById(R.id.iv_favorite)
     }
 }

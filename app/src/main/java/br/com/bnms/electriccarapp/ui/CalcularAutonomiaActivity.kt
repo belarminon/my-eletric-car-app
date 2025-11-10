@@ -1,6 +1,8 @@
 package br.com.bnms.electriccarapp.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.provider.Settings.System.putFloat
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -23,6 +25,13 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
 
         setupView()
         setupListeners()
+
+        setupCachedResult()
+    }
+
+    private fun setupCachedResult() {
+        val valorCalculado = getSharedPref()
+        resultado.text = valorCalculado.toString()
     }
 
     fun setupView() {
@@ -50,6 +59,21 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
 
     private fun CalcularKM(quantia: Float, km: Float): String {
         val result = quantia / km
+
+        saveSharedPref(result)
+
         return "O valor da autonomia é de: ${result.toString()}"
+    }
+    fun saveSharedPref(resultado: Float) {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putFloat(getString (R.string.saved_calc) , resultado)
+            apply()
+        }
+    }
+
+    fun getSharedPref(): Float{
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        return sharedPref.getFloat(getString(R.string.saved_calc), 0.0f)
     }
 }

@@ -12,4 +12,5 @@
     <string name="carros">CARROS</string>
     <string name="favoritos">FAVORITOS</string>
     <string name="response_error">Algo deu errado, por favor tente mais tarde.</string>
+    <string name="saved_calc">salved_calc</string>
 </resources>

@@ -6,5 +6,6 @@ data class CarroDomain (
     val bateria: String,
     val potencia: String,
     val tempoRecarga: String,
-    val urlPhoto: String
+    val urlPhoto: String,
+    var isFavorite: Boolean
 )
