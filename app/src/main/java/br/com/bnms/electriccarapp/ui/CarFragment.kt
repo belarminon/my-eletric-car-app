@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,11 +13,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bnms.electriccarapp.R
+import br.com.bnms.electriccarapp.data.CarsApi
 import br.com.bnms.electriccarapp.domain.CarroDomain
 import br.com.bnms.electriccarapp.ui.adapter.CarAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -27,6 +28,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONTokener
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
@@ -38,6 +44,8 @@ class CarFragment : Fragment() {
     private lateinit var progress: ProgressBar
     private lateinit var noWifi: ImageView
     private lateinit var noWifiText: TextView
+
+    private lateinit var carApi: CarsApi
     private val carroArray: ArrayList<CarroDomain> = ArrayList()
 
     override fun onCreateView(
@@ -50,10 +58,9 @@ class CarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRetrofit()
         setupView(view)
         setupListeners()
-
-
     }
 
     override fun onResume() {
@@ -62,7 +69,7 @@ class CarFragment : Fragment() {
         // Only call the service *after* the views are initialized
         if (checkForInternet(requireContext())) {
             progress.isVisible = true
-            callService()
+            getAllCars()
         } else {
             emptyState()
         }
@@ -75,6 +82,44 @@ class CarFragment : Fragment() {
         noWifiText.isVisible = true
     }
 
+    fun setupRetrofit(){
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com/belarminon/my-eletric-car-app/refs/heads/master/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        carApi = retrofit.create(CarsApi::class.java)
+    }
+
+    fun getAllCars(){
+        carApi.getAllCars().enqueue(object: Callback<List<CarroDomain>>{
+            override fun onResponse(
+                call: Call<List<CarroDomain>?>,
+                response: Response<List<CarroDomain>?>
+            ) {
+                if (response.isSuccessful){
+                    progress.isVisible = false
+                    noWifi.isVisible = false
+                    noWifiText.isVisible = false
+
+                    response.body()?.let{
+                        setUpLista(it)
+                    }
+                } else{
+                    Toast.makeText(context, R.string.response_error, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(
+                call: Call<List<CarroDomain>?>,
+                t: Throwable
+            ) {
+                Toast.makeText(context, R.string.response_error, Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
     fun setupView(view: View) {
         view.apply {
             fabCalcular = findViewById(R.id.fab_calcular)
@@ -85,11 +130,12 @@ class CarFragment : Fragment() {
             noWifiText = findViewById(R.id.tv_no_wifi)
         }
     }
-    fun setUpLista() {
+    fun setUpLista(lista: List<CarroDomain>) {
 
-        val carAdapter = CarAdapter(carroArray)
+        val carAdapter = CarAdapter(lista)
 
-        listaCarros.apply {
+        listaCarros
+            .apply {
             isVisible = true
             adapter = carAdapter
         }
@@ -98,11 +144,6 @@ class CarFragment : Fragment() {
         fabCalcular.setOnClickListener {
             startActivity(Intent(context, CalcularAutonomiaActivity::class.java))
         }
-    }
-
-    fun callService(){
-        val urlBase =  "https://raw.githubusercontent.com/belarminon/my-eletric-car-app/refs/heads/master/my-electric-car-app.json"
-        getCarInformation(urlBase)
     }
 
     fun checkForInternet(context: Context?): Boolean {
@@ -124,46 +165,6 @@ class CarFragment : Fragment() {
         }
     }
 
-    fun getCarInformation(urlString: String) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            Log.d("Coroutine", "Iniciando")
-
-            var urlConnection: HttpsURLConnection? = null
-            try {
-                val url = URL(urlString)
-                urlConnection = url.openConnection() as HttpsURLConnection
-                urlConnection.connectTimeout = 60000
-                urlConnection.readTimeout = 60000
-                urlConnection.setRequestProperty(
-                    "Accept",
-                    "application/json"
-                )
-
-                val responsoCode = urlConnection.responseCode
-
-                if (responsoCode == HttpsURLConnection.HTTP_OK) {
-                    val response = urlConnection.inputStream.bufferedReader().use { it.readText() }
-                    // Switch to main thread to update UI or log
-                    withContext(Dispatchers.Main) {
-                        processResponse(response)
-                    }
-
-                } else {
-                    Log.e("Error", "Serviço indisponivel no momento ...")
-                }
-
-
-            } catch (ex: Exception) {
-                Log.e("Error", "Erro ao realizar processamento: ${ex.message}")
-            } finally {
-                urlConnection?.disconnect()
-                withContext(Dispatchers.Main) {
-                    Log.d("Coroutine", "Finalizado")
-                }
-            }
-        }
-    }
-
     private fun processResponse(response: String) {
         try {
             val jsonArray = JSONTokener(response).nextValue() as JSONArray
@@ -181,7 +182,7 @@ class CarFragment : Fragment() {
                 )
                 carroArray.add(model)
             }
-            setUpLista()
+//            setUpLista()
             progress.isVisible = false
             noWifi.isVisible = false
             noWifiText.isVisible = false

@@ -11,4 +11,5 @@
     <string name="title_2nd_activity">Calcular Autonomia</string>
     <string name="carros">CARROS</string>
     <string name="favoritos">FAVORITOS</string>
+    <string name="response_error">Algo deu errado, por favor tente mais tarde.</string>
 </resources>
